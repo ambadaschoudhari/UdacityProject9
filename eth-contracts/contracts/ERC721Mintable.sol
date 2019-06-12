@@ -73,7 +73,7 @@ contract Pausable is Ownable{
     }
     modifier requireNotPaused()
     {
-        require(_paused = false, "Contract is paused");
+        require(_paused == false, "Contract is paused");
         _;  // All modifiers require an "_" which indicates where the function body will be added
     }
 
@@ -160,6 +160,8 @@ contract ERC721 is Pausable, ERC165 {
     using Address for address;
     using Counters for Counters.Counter;
 
+    event evntTestv(address to, uint256 tokenId);
+
     // Equals to `bytes4(keccak256("onERC721Received(address,address,uint256,bytes)"))`
     // which can be also obtained as `IERC721Receiver(0).onERC721Received.selector`
     bytes4 private constant _ERC721_RECEIVED = 0x150b7a02;
@@ -192,13 +194,14 @@ contract ERC721 is Pausable, ERC165 {
 
     }
 
-    function balanceOf(address owner) public requireNotPaused returns (uint256) {
+    function balanceOf(address owner) public requireNotPaused view returns (uint256) {
         //xTODO return the token balance of given address
         // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-        return Counters.current(_ownedTokensCount[owner]);
+        //emit evntTestv(owner, 0);
+        return _ownedTokensCount[owner].current();
     }
 
-    function ownerOf(uint256 tokenId) public requireNotPaused returns (address) {
+    function ownerOf(uint256 tokenId) public requireNotPaused view returns (address) {
         //xTODO return the owner of the given tokenId
         return _tokenOwner[tokenId];
     }
@@ -209,18 +212,18 @@ contract ERC721 is Pausable, ERC165 {
         //xTODO require the given address to not be the owner of the tokenId
         require(to != ownerOf(tokenId),"Can not transfer token to current owner");
         //xTODO require the msg sender to be the owner of the contract or isApprovedForAll() to be true
-        //address operator = msg.sender; ///this needs to be confirmed if it is ok
+        //address operator = msg.sender; //this needs to be confirmed if it is ok
         //address owner = ownerOf(tokenId);
 
         require(_isApprovedOrOwner(msg.sender,tokenId),"Can not transfer someone else's tokens");
         //?TODO add 'to' address to token approvals
         _tokenApprovals[tokenId] = to;
-            /// Prj-9 Operator approval related code to be added
+            // Prj-9 Operator approval related code to be added
         //xTODO emit Approval Event
         emit Approval(_owner, to, tokenId);
     }
 
-    function getApproved(uint256 tokenId) public requireNotPaused returns (address) {
+    function getApproved(uint256 tokenId) public requireNotPaused view returns (address) {
         //xTODO return token approval if it exists
         return _tokenApprovals[tokenId];
     }
@@ -243,7 +246,7 @@ contract ERC721 is Pausable, ERC165 {
      * @param operator operator address which you want to query the approval of
      * @return bool whether the given operator is approved by the given owner
      */
-    function isApprovedForAll(address owner, address operator) public requireNotPaused returns (bool) {
+    function isApprovedForAll(address owner, address operator) public requireNotPaused view returns (bool) {
         return _operatorApprovals[owner][operator];
     }
 
@@ -281,23 +284,24 @@ contract ERC721 is Pausable, ERC165 {
      * is an operator of the owner, or is the owner of the token
      */
     //function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {
-    function _isApprovedOrOwner(address spender, uint256 tokenId) internal returns (bool) {
+    function _isApprovedOrOwner(address spender, uint256 tokenId) internal view returns (bool) {
         address owner = ownerOf(tokenId);
         return (spender == owner || getApproved(tokenId) == spender || isApprovedForAll(owner, spender));
     }
 
     // @dev Internal function to mint a new token
     // TIP: remember the functions to use for Counters. you can refresh yourself with the link above
-    function _mint(address to, uint256 tokenId) internal {
+    function _mint(address to, uint256 tokenId) internal  {
 
         //xTODO revert if given tokenId already exists or given address is invalid
         require(!_exists(tokenId) || to != address(0),"Can not mint an existing token"); //How to know if address is invalid?
         //xTODO mint tokenId to given address & increase token count of owner
         _tokenOwner[tokenId] = to;
-        _ownedTokensCount[to].increment;
+        _ownedTokensCount[to].increment();
 
         //xTODO emit Transfer event
         emit Transfer(address(0),to,tokenId);
+        //emit evntTestv(to,uint256(balanceOf(to)));
     }
 
     // @dev Internal function to transfer ownership of a given token ID to another address.
@@ -315,8 +319,8 @@ contract ERC721 is Pausable, ERC165 {
         delete _tokenApprovals[tokenId];
 
         //?TODO: update token counts & transfer ownership of the token ID
-        _ownedTokensCount[from].decrement;
-        _ownedTokensCount[to].increment;
+        _ownedTokensCount[from].decrement();
+        _ownedTokensCount[to].increment();
         _tokenOwner[tokenId] = to;
         //xTODO: emit correct event
         emit Transfer(from, to, tokenId);
@@ -351,6 +355,8 @@ contract ERC721 is Pausable, ERC165 {
 }
 
 contract ERC721Enumerable is ERC165, ERC721 {
+    event evntTest(address to, uint256 tokenId);
+
     // Mapping from owner to list of owned token IDs
     mapping(address => uint256[]) private _ownedTokens;
 
@@ -386,7 +392,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
      * @return uint256 token ID at the given index of the tokens list owned by the requested address
      */
     //function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256) {
-    function tokenOfOwnerByIndex(address owner, uint256 index) public returns (uint256) {
+    function tokenOfOwnerByIndex(address owner, uint256 index) public view returns (uint256) {
         require(index < balanceOf(owner),"Index shall be less than balance of owner");
         return _ownedTokens[owner][index];
     }
@@ -437,6 +443,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
         _addTokenToOwnerEnumeration(to, tokenId);
 
         _addTokenToAllTokensEnumeration(tokenId);
+
     }
 
     /**
@@ -456,6 +463,7 @@ contract ERC721Enumerable is ERC165, ERC721 {
     function _addTokenToOwnerEnumeration(address to, uint256 tokenId) private {
         _ownedTokensIndex[tokenId] = _ownedTokens[to].length;
         _ownedTokens[to].push(tokenId);
+        emit evntTest(to, tokenId);
     }
 
     /**
@@ -465,6 +473,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
     function _addTokenToAllTokensEnumeration(uint256 tokenId) private {
         _allTokensIndex[tokenId] = _allTokens.length;
         _allTokens.push(tokenId);
+        emit evntTest(address(0), tokenId);
+
     }
 
     /**
@@ -525,6 +535,8 @@ contract ERC721Enumerable is ERC165, ERC721 {
 
 contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 
+    //xPRJ-9 Extra code added
+    event evntsetTokenURI(uint256 tokenID);
     //xTODO: Create private vars for token _name, _symbol, and _baseTokenURI (string)
     string private  _name;
     string private _symbol;
@@ -552,17 +564,17 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
     }
 
     //xTODO: create external getter functions for name, symbol, and baseTokenURI
-    function  getName() external  requireNotPaused returns(string memory name)  {
+    function  getName() external  requireNotPaused view returns(string memory name)  {
        return (_name);
     }
-    function  getSymbol() external  requireNotPaused returns(string memory symbol)  {
+    function  getSymbol() external  requireNotPaused view returns(string memory symbol)  {
        return (_symbol);
     }
-    function  getbaseTokenURI() external  requireNotPaused returns(string memory baseTokenURI)  {
+    function  getbaseTokenURI() external  requireNotPaused view returns(string memory baseTokenURI)  {
        return (_baseTokenURI);
     }
 
-    function tokenURI(uint256 tokenId) external requireNotPaused returns (string memory) {
+    function tokenURI(uint256 tokenId) external requireNotPaused view returns (string memory) {
         require(_exists(tokenId),"Token ID must exist");
         return _tokenURIs[tokenId];
     }
@@ -579,6 +591,7 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
         string memory strTokenID = uint2str(tokenID);
         string memory tokenURIstr = strConcat(_baseTokenURI,strTokenID);
         _tokenURIs[tokenID] = tokenURIstr;
+        emit evntsetTokenURI(tokenID);
     }
 }
 
@@ -592,14 +605,19 @@ contract ERC721Metadata is ERC721Enumerable, usingOraclize {
 //      -calls the superclass mint and setTokenURI functions
 
 
-contract CustomERC721Token is ERC721Metadata {
-  string private custombaseTokenURI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
+contract CustomERC721Token is ERC721Metadata
+    //(string memory name,
+    // string memory symbol,
+    // string memory baseTokenURI)
+    {
+  //string private custombaseTokenURI = "https://s3-us-west-2.amazonaws.com/udacity-blockchain/capstone/";
   constructor(string memory name, string memory symbol, string memory baseTokenURI)
-  ERC721Metadata(name, symbol, custombaseTokenURI) public {
+  ERC721Metadata(name, symbol, baseTokenURI) public {
   }
   function mint(address to, uint256 tokenId)
           public
-          requireContractOwner(msg.sender)
+          requireNotPaused
+          onlyOwner
           returns(bool completionFlag)
           {
               completionFlag = false;

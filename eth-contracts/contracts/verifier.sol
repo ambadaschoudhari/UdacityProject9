@@ -101,8 +101,7 @@ library BN256G2 {
      * @param pt1yy Coefficient 2 of y
      * @return (pt2xx, pt2xy, pt2yx, pt2yy)
      */
-    function ECTwistMul(
-        uint256 s,
+    function ECTwistMul(uint256 s,
         uint256 pt1xx, uint256 pt1xy,
         uint256 pt1yx, uint256 pt1yy
     ) public pure returns (
