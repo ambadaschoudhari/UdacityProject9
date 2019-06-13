@@ -1,0 +1,122 @@
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9\eth-contracts> truffle migrate --reset --network rinkeby
+Compiling .\contracts\ERC721Mintable.sol...
+Compiling .\contracts\Oraclize.sol...
+Compiling .\contracts\Verifier.sol...
+
+Compilation warnings encountered:
+
+/D/Ambadas/OneDrive - Infosys Limited/STAR/OtherWork/BlockChain/Udacity/Project-9/UdacityProject9/eth-contracts/contracts/Oraclize.sol:371:5: Warning: Function state mutability can be restricted to pure
+    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) public {
+    ^ (Relevant source part starts here and spans across multiple lines).
+
+Writing artifacts to .\build\contracts
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 7224340
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.90306336
+   > gas used:            269908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00269908 ETH
+
+   -------------------------------------
+   > Total cost:          0.00269908 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'Verifier'
+   --------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.890215
+   > gas used:            1257802
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01257802 ETH
+
+   -------------------------------------
+   > Total cost:          0.01257802 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.0152771 ETH
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 7220139
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x763de748e448777a3df99d4e411b35a290842b499f26a9b4eb2120f3f6f71177
+   > Blocks: 1            Seconds: 13
+   > contract address:    0x9E17Ce60D9080e053248678eB4F4eb1567D0E274
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.90291336
+   > gas used:            284908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00284908 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00284908 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'Verifier'
+   --------------------
+   > transaction hash:    0x37e3e5e11d208ed9af417a5d3e6526723cda38b7fe9614982ebb07186ba4b0f8
+   > Blocks: 2            Seconds: 21
+   > contract address:    0xEE55C839e8000d750E0D4C013e04539d487310DD
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             2.889915
+   > gas used:            1257802
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.01257802 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.01257802 ETH
+
+
+Summary
+=======
+> Total deployments:   2
+> Final cost:          0.0154271 ETH
+
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9\eth-contracts>
