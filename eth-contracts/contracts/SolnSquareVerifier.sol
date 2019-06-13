@@ -41,18 +41,18 @@ struct solutions{
 solutions[]  solAddressArray;
 
 //xTODO define a mapping to store unique solutions submitted
-mapping (address => bool) submittedSolutions;
+mapping (bytes32 => bool) submittedSolutions;
 
 //xTODO Create an event to emit when a solution is added
 event evntAddSol(uint256 index, address solAddress);
 
 //xTODO Create a function to add the solutions to the array and emit the event
-function addSolution(uint256 index, address solAddress) public {
+function addSolution(uint256 index, address solAddress, bytes32 solutionKey ) public {
    solutions memory sol;
    sol.index = index;
    sol.solAddress = solAddress;
    solAddressArray.push(sol);
-   submittedSolutions[solAddress] = true;
+   submittedSolutions[solutionKey] = true;
    emit evntAddSol(index, solAddress);
 }
 
@@ -68,13 +68,16 @@ function addSolution(uint256 index, address solAddress) public {
             uint256 tokenId           //CustomERC721Token
             //,string memory name,      //Constructor param initialize while deployment
             //string memory symbol      //Constructor param initialize while deployment
-            ) public{
-
+            ) public returns(bool successFlag){
+        successFlag = false;
         bool VerificationResult = sqVerifyTx(a,b,c,input);
         require(VerificationResult == true, "Result shall be verified");
-        require(submittedSolutions[to] != true, "submitted can not be resubmitted");
-        addSolution(tokenId, to);
-        mint(to, tokenId);
+        bytes32 solutionKey = keccak256(abi.encodePacked(a,b,c,input));
+
+        require(submittedSolutions[solutionKey] != true, "submitted can not be resubmitted");
+        addSolution(tokenId, to,solutionKey);
+        successFlag = mint(to, tokenId);
+        return (successFlag);
    }
   }
 
