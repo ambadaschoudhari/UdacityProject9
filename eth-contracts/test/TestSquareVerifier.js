@@ -3,9 +3,15 @@ var VerifierContract = artifacts.require('Verifier');
 
 // - use the contents from proof.json generated from zokrates steps
 //import proofJSON from '../../zokrates/code/square/proof';
-var proofJSON = require('../../zokrates/code/square/proof');
 var badProofJSON = require('../../zokrates/code/square/proof1');
-    
+var proofJSON = require('../../zokrates/code/square/proof24');
+//var proofJSON = require('../../zokrates/code/square/proof39');
+//var proofJSON = require('../../zokrates/code/square/proof416');
+//var proofJSON = require('../../zokrates/code/square/proof525');
+//var proofJSON = require('../../zokrates/code/square/proof636');    
+//var proofJSON = require('../../zokrates/code/square/proof749');    
+//var proofJSON = require('../../zokrates/code/square/proof864');    
+//var proofJSON = require('../../zokrates/code/square/proof981');    
 
 contract('VerifyProof', accounts => {
 
@@ -20,12 +26,12 @@ contract('VerifyProof', accounts => {
     describe('Verify Zokrates', function () {
         beforeEach(async function () {
              this.contract = await VerifierContract.new({from: account_one});
-             console.log("Contract Deployed: ");
+             //console.log("Contract Deployed: ");
                })
         // Test verification with correct proof
         it('verification with correct proof', async function () { 
             //console.log("Test Started: a ", JSON.stringify(proofJSON.proof.a));
-            // console.log("Test Started: b ", JSON.stringify(proofJSON.proof.b));
+            //console.log("Test Started: b ", JSON.stringify(proofJSON.proof.b));
             //console.log("Test Started: c ", JSON.stringify(proofJSON.proof.c));
             //console.log("Test Started: input ", JSON.stringify(proofJSON.inputs));
             let verifyResult = await this.contract.verifyTx.call(proofJSON.proof.a,proofJSON.proof.b,proofJSON.proof.c,proofJSON.inputs);
@@ -33,7 +39,7 @@ contract('VerifyProof', accounts => {
             assert.equal(verifyResult, true, "TC1: Proof shall be verified");
         })
         // Test verification with incorrect proof        
-        it('verification with correct proof', async function () { 
+        it('verification with incorrect proof', async function () { 
             let verifyResult = await this.contract.verifyTx.call(badProofJSON.proof.a,badProofJSON.proof.b,badProofJSON.proof.c,badProofJSON.inputs);
             assert.equal(verifyResult, false, "TC2: Invalid Proof shall not be verified");
         })
