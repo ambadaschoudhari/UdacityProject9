@@ -1,0 +1,18 @@
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0x3ff870345396d9a760fa15eef2adf7bc80ab7adda014b6997059b7344a984109
+total Supply:  BigNumber { _hex: '0x01' }
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0x16cec0b6890f6480f1306abc598781971432b5f2c6b11b3ba289768a82221585
+total Supply:  BigNumber { _hex: '0x02' }
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0xe624dadb2cac5199d45e75b7ee7c3136d104278be5f2dd3f64e81e32f5e9ea8a
+total Supply:  BigNumber { _hex: '0x03' }
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0xf71577cdfa666886580b1f16df8075f8dc0be3f87dce8b6ce0d8ef98bc1c71f4
+total Supply:  BigNumber { _hex: '0x04' }
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0xf5a82adba1d1a17f7c9815055bf3cc484e48ed21ec9437e2b895d07e7c257f82
+total Supply:  BigNumber { _hex: '0x05' }
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9> node .\MintingScript.js
+0x445f4d8ec353d87d45688a420ed1c1b4775f4a542ab70fe7092155ae68180f6b
+total Supply:  BigNumber { _hex: '0x06' }

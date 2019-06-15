@@ -1,0 +1,144 @@
+PS D:\Ambadas\OneDrive - Infosys Limited\STAR\OtherWork\BlockChain\Udacity\Project-9\UdacityProject9\eth-contracts> truffle migrate --reset --network rinkeby
+Compiling .\contracts\ERC721Mintable.sol...
+Compiling .\contracts\Oraclize.sol...
+Compiling .\contracts\Verifier.sol...
+
+Compilation warnings encountered:
+
+/D/Ambadas/OneDrive - Infosys Limited/STAR/OtherWork/BlockChain/Udacity/Project-9/UdacityProject9/eth-contracts/contracts/Oraclize.sol:371:5: Warning: Function state mutability can be restricted to pure
+    function __callback(bytes32 _myid, string memory _result, bytes memory _proof) public {
+    ^ (Relevant source part starts here and spans across multiple lines).
+
+Writing artifacts to .\build\contracts
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Migrations dry-run (simulation)
+===============================
+> Network name:    'rinkeby-fork'
+> Network id:      4
+> Block gas limit: 7001766
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.579388601
+   > gas used:            269908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00269908 ETH
+
+   -------------------------------------
+   > Total cost:          0.00269908 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'Verifier'
+   --------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.566542161
+   > gas used:            1257610
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0125761 ETH
+
+
+   Deploying 'SolnSquareVerifier'
+   ------------------------------
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.507605631
+   > gas used:            5893653
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.05893653 ETH
+
+   -------------------------------------
+   > Total cost:          0.07151263 ETH
+
+
+Summary
+=======
+> Total deployments:   3
+> Final cost:          0.07421171 ETH
+
+⚠️  Important ⚠️
+If you're using an HDWalletProvider, it must be Web3 1.0 enabled or your migration will hang.
+
+
+Starting migrations...
+======================
+> Network name:    'rinkeby'
+> Network id:      4
+> Block gas limit: 7006834
+
+
+1_initial_migration.js
+======================
+
+   Deploying 'Migrations'
+   ----------------------
+   > transaction hash:    0x88cfacb9b5314187c340bc957f2ec3d240887a6b66e3eb9b509d973f258b638c
+   > Blocks: 7            Seconds: 97
+   > contract address:    0x58628481812c7505FC7F5e270EB39535F012Bd59
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.579238601
+   > gas used:            284908
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.00284908 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.00284908 ETH
+
+
+2_deploy_contracts.js
+=====================
+
+   Deploying 'Verifier'
+   --------------------
+   > transaction hash:    0x0e6fe1329fad8c07bff0e0b42de1df9930827cd92bf9676acfb933eac5e60b83
+   > Blocks: 0            Seconds: 5
+   > contract address:    0x0635f5c3d117c1A0E8056F03A220857653BB678B
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.566242161
+   > gas used:            1257610
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.0125761 ETH
+
+
+   Deploying 'SolnSquareVerifier'
+   ------------------------------
+   > transaction hash:    0x95bbdec6d5e884369060fb561c4b16d4de192d321027dbcb11eeefa6d4cc0529
+   > Blocks: 1            Seconds: 21
+   > contract address:    0xCcc7F49470b79fBfaC65b36Cf85D0714B3b3c971
+   > account:             0x66Fc100dD6b011C050F1E17625184a5983523E4F
+   > balance:             5.505505631
+   > gas used:            6073653
+   > gas price:           10 gwei
+   > value sent:          0 ETH
+   > total cost:          0.06073653 ETH
+
+
+   > Saving migration to chain.
+   > Saving artifacts
+   -------------------------------------
+   > Total cost:          0.07331263 ETH
+
+
+Summary
+=======
+> Total deployments:   3
+> Final cost:          0.07616171 ETH
+
