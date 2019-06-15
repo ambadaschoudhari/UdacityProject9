@@ -10,8 +10,9 @@ Post verification the property is listed on open sea market place. Metadata of p
 I have also implemented Heroku app for base token URI https://thawing-refuge-73730.herokuapp.com/api/token/<token ID>. But did not use that because images that I found in capstone link were much more creating and names more catchy that what I had put in Heroku
 
 
-##Smart Contracts Following are the Smart Contracts files in this project-
+# Smart Contracts 
 
+Following are the Smart Contracts files in this project-
 ERC721Mintable.sol --> CustomERC721Token inheris from ERC721Metadata [to set up symbols tokens etc] which is inherited from ERC721Enumerable [for token management], usingOraclize [for communication 
 with outside world]. ERC721Enumerable inheris from ERC721 [Token management contract] which has been created as a pausable contract. 
 
@@ -23,11 +24,48 @@ This has been tested using TestSquareVerifier.js script, by uncommenting assignm
 SolnSquareVerifier.sol --> Is wrapper contract inheriting Verifier and CustomERC721Token and is main contract that gets deployed. 
 This has been tested using TestSolnSquareVerifier.js script and test results are present as part of TestResults\ContractTestResults.txt
 
-#Stepwise Status
+# Installation Steps
 
-Use npm install for installation, if python is not installed, installation might give issues
+0. Prerequisits: Ganache, truffle, Node, docker toolbox (in case new proofs are to be generated)
 
-#Stepwise Status
+1. Clone the repo from gitHub https://github.com/ambadaschoudhari/UdacityProject9
+2. Open Terminal and change directory to UDACITYPROJECT9 folder
+3. Use npm install for installation, if python is not installed, installation might give issues
+4. In case you want to change baseToken URI change value of baseTokenURI in 2_deploy_contracts.js
+5. (Optional) In case you want to generate new proof
+   5.1 docker run -v <home directory>/zokrates/code:/home/zokrates/code -it zokrates/zokrates /bin/bash
+   5.2 change directory to zokrates/code/square folder on docker terminal
+   5.3 ../../zokrates compile -i  square.code  [Only once]
+   5.4 ../../zokrates setup  [Only once]
+   5.5 ../../zokrates compute-witness -a 2 4  [repeat for every poof]
+   5.6 in above command m = 2 and n = m^2 for command ../../zokrates compute-witness -a m n
+   5.7 Repeat command replacing other values of m and n, ensure than value of m and n do not repeat
+   5.8 Other examples of command in 5.7 e.g. for m = 4 ../../zokrates compute-witness -a 4 16
+   5.9 ../../zokrates generate-proof [repeat for every poof]
+   5.10 ../../zokrates export-verifier [Only once]
+   5.11 Copy Verify.sol to eth-contracts folder.
+6. Change directory to eth-contracts
+7. run truffle compile
+8. truffle migrate --reset  
+9. truffle test
+10. truffle migrate --reset --network rinkeby  or truffle migrate --reset 
+
+# Testing 
+1. Run testing command truffle.cmd test TestERC721Mintable.js fpr below test cases
+   (a) Should return total supply 
+   (b) Should get token balance
+   (c) Should return token uri 
+   (d) Should transfer token from one owner to another
+   (e) Should fail when minting when address is not contract owner 
+   (f) Should return contract owner
+2. Run testing command truffle.cmd test TestSquareVerifier.js for below test cases
+   (a) Verification with correct proof 
+   (b) Verification with incorrect proof
+3. Run testing command truffle.cmd test TestSolnSquareVerifier.js for below test cases
+   (a) ERC721 token can be minted for contract - using proof
+   (b) ERC721 token can not be minted for contract - with same proof 
+
+# Requirements Traceability
     ## Clone the project repository - Done
     ## Explore the code base - Done 
     ## Fill out ERC721 Mintable Contract in ERC721Mintable.sol
